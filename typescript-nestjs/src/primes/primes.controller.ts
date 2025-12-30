@@ -7,14 +7,10 @@ export class PrimesController {
 
   @Get()
   getPrimes(@Query('n') n: string) {
-    const limit = Number(n);
-    const start = Date.now();
-    const result = this.primeService.calculatePrime(limit);
-    const elapsed = Date.now() - start;
+    const result = this.primeService.calculatePrime(Number(n));
 
     return {
       count: result.length,
-      elapsedMs: elapsed,
     };
   }
 }
