@@ -1,10 +1,10 @@
-# 🚀 TypeScript + NestJS vs Go + Gin: Performance Benchmark
+# 🚀 NestJS vs Go + Gin: Performance Benchmark
 
 ## 📋 Sobre o Projeto
 
 Este repositório contém uma comparação de performance entre duas stacks populares para desenvolvimento de APIs REST:
 
-- **TypeScript + NestJS** (Node.js)
+- **NestJS** (Node.js + TypeScript)
 - **Go + Gin**
 
 O objetivo é avaliar e comparar o desempenho de ambas as tecnologias em cenários **CPU-bound** e **I/O-bound**, fornecendo dados reais e objetivos para auxiliar na escolha de tecnologia para diferentes tipos de aplicações.
@@ -13,33 +13,68 @@ O objetivo é avaliar e comparar o desempenho de ambas as tecnologias em cenári
 
 Escolher a stack certa pode impactar significativamente a performance, escalabilidade e custos de infraestrutura de uma aplicação. Este benchmark busca responder perguntas como:
 
-- Qual stack é mais eficiente em operações que exigem processamento intensivo?
-- Como cada tecnologia se comporta em operações de I/O (chamadas HTTP, leitura de arquivos)?
+- Qual stack é mais eficiente em operações que exigem processamento intensivo (CPU-bound)?
+- Como cada tecnologia se comporta em operações de I/O (chamadas HTTP externas)?
 - Qual o consumo de recursos (CPU e memória) de cada uma?
-- Quais as diferenças em latência e throughput?
+- Quais as diferenças em latência e throughput sob carga?
 
 ## 🧪 Testes Implementados
 
-### CPU-Bound
+### 1. CPU-Bound: Cálculo de Números Primos
 
-Testes focados em processamento computacional intensivo:
+**Endpoint:** `GET /primes?n={número}`
 
-- Cálculo de números de Fibonacci (recursivo)
-- Geração de números primos
-- Operações de hashing (bcrypt)
+Calcula todos os números primos até N, testando a capacidade de processamento computacional de cada stack.
 
-### I/O-Bound
+**Exemplo:**
 
-Testes focados em operações de entrada/saída:
+```bash
+curl "http://localhost:8080/primes?n=100000"  # Go
+curl "http://localhost:3000/primes?n=100000"  # NestJS
+```
 
-- Chamadas HTTP para APIs externas
-- Leitura e processamento de arquivos
-- Requisições paralelas e agregação de dados
+**Response:**
+
+```json
+{
+  "count": 9592,
+  "elapsedMs": 245
+}
+```
+
+### 2. I/O-Bound: Requisições HTTP Externas
+
+#### 2.1 Fetch de Todos os Posts
+
+**Endpoint:** `GET /fetch`
+
+Busca todos os posts da API pública JSONPlaceholder em uma única requisição.
+
+**Exemplo:**
+
+```bash
+curl "http://localhost:8080/fetch"  # Go
+curl "http://localhost:3000/fetch"  # NestJS
+```
+
+#### 2.2 Fetch Agregado (Paralelo)
+
+**Endpoint:** `GET /aggregate`
+
+Realiza 10 requisições HTTP em paralelo para buscar posts individuais, testando a capacidade de I/O concorrente.
+
+**Exemplo:**
+
+```bash
+curl "http://localhost:8080/aggregate"  # Go
+curl "http://localhost:3000/aggregate"  # NestJS
+```
 
 ## 📊 Métricas Coletadas
 
 - **RPS (Requests Per Second)**: Quantidade de requisições processadas por segundo
-- **Latência**: p50, p95 e p99 (percentis de tempo de resposta)
+- **Latência Média**: Tempo médio de resposta
+- **Percentis**: p50, p95 e p99 (distribuição de tempo de resposta)
 - **Taxa de Erro**: Percentual de requisições que falharam
 - **Uso de CPU**: Percentual de CPU utilizado durante os testes
 - **Uso de Memória**: Consumo de memória RAM durante os testes
@@ -48,12 +83,43 @@ Testes focados em operações de entrada/saída:
 
 ```
 .
-├── typescript-nestjs/       # Implementação em TypeScript + NestJS
+├── nest-api/                # Implementação em NestJS
+│   ├── src/
+│   │   ├── primes/         # Módulo de cálculo de primos
+│   │   ├── fetch/          # Módulo de requisições HTTP
+│   │   └── interceptors/   # Logging interceptor
+│   ├── Dockerfile
+│   └── package.json
 ├── go-gin/                  # Implementação em Go + Gin
-├── benchmarks/              # Scripts e configurações de benchmark
-│   ├── scripts/            # Scripts de automação
-│   ├── configs/            # Configurações do Artillery
-│   └── results/            # Resultados dos testes
-├── infrastructure/          # Docker Compose e configs
-└── docs/                    # Documentação detalhada
+│   ├── primes/             # Package de cálculo de primos
+│   ├── fetch/              # Package de requisições HTTP
+│   ├── server/             # Configuração do servidor
+│   ├── Dockerfile
+│   ├── go.mod
+│   └── main.go
+├── infrastructure/          # Docker Compose
+│   └── docker-compose.yml
+└── README.md
+```
+
+## 🚀 Como Executar
+
+### Pré-requisitos
+
+- Docker
+- Docker Compose
+
+### Subindo as Aplicações
+
+```bash
+# Clone o repositório
+git clone
+cd
+
+# Suba ambas aplicações com Docker Compose
+cd infrastructure
+docker-compose up -d
+
+# Verifique se estão rodando
+docker-compose ps
 ```
