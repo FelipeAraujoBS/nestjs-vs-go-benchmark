@@ -136,9 +136,9 @@ Os resultados são salvos automaticamente em:
 ./benchmark-results/YYYYMMDD_HHMMSS/
 ```
 
-# 🧠 Análise Geral
+## 🧠 Análise Geral
 
-## Go + Gin
+### Go + Gin
 
 - **Excelente desempenho em CPU-bound**
 
@@ -160,7 +160,7 @@ Os resultados são salvos automaticamente em:
 
 - **Conclusão: a escolha da stack deve considerar o tipo de carga predominante da aplicação, e não apenas benchmarks isolados.**
 
-# ⚙️ Ambiente de Teste
+## ⚙️ Ambiente de Teste
 
 Para evitar vieses:
 
@@ -176,7 +176,7 @@ Para evitar vieses:
 
 Os resultados refletem diferenças reais de arquitetura e runtime, não variações do sistema operacional.
 
-# 📌 Considerações Finais
+## 📌 Considerações Finais
 
 Este projeto foi desenvolvido com foco em:
 
