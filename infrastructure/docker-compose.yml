@@ -1,26 +1,29 @@
 services:
   go-api:
     build:
-      context: ../go-gin # ← Sobe um nível (..) e entra em go-gin
+      context: ../go-gin
       dockerfile: Dockerfile
     container_name: go-api
     ports:
       - "8080:8080"
     environment:
       - GIN_MODE=release
+      - GOMAXPROCS=4
+    cpuset: "0-3"
     restart: unless-stopped
     networks:
       - app-network
 
   nest-api:
     build:
-      context: ../typescript-nestjs # ← Sobe um nível (..) e entra em nest-api
+      context: ../typescript-nestjs
       dockerfile: Dockerfile
     container_name: nest-api
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
+    cpuset: "0-3"
     restart: unless-stopped
     networks:
       - app-network

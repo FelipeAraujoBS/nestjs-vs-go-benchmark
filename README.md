@@ -123,3 +123,67 @@ docker-compose up -d
 # Verifique se estão rodando
 docker-compose ps
 ```
+
+### Executando o Benchmark
+
+```bash
+./benchmark.sh
+```
+
+Os resultados são salvos automaticamente em:
+
+```txt
+./benchmark-results/YYYYMMDD_HHMMSS/
+```
+
+# 🧠 Análise Geral
+
+## Go + Gin
+
+- **Excelente desempenho em CPU-bound**
+
+- **Menor latência e maior previsibilidade**
+
+- **Baixo overhead de runtime**
+
+- **Muito eficiente em paralelismo explícito**
+
+## NestJS
+
+- **Desempenho superior em I/O-bound simples**
+
+- **Alto throughput em endpoints leves**
+
+- **Forte ecossistema e produtividade**
+
+- **Overhead perceptível em workloads CPU-bound**
+
+- **Conclusão: a escolha da stack deve considerar o tipo de carga predominante da aplicação, e não apenas benchmarks isolados.**
+
+# ⚙️ Ambiente de Teste
+
+Para evitar vieses:
+
+**🐳 Docker Compose**
+
+**🔒 CPU fixada por container**
+
+**📦 Builds isolados**
+
+**📊 Benchmark automatizado**
+
+**🚫 Sem dependências externas além do HTTP**
+
+Os resultados refletem diferenças reais de arquitetura e runtime, não variações do sistema operacional.
+
+# 📌 Considerações Finais
+
+Este projeto foi desenvolvido com foco em:
+
+**Engenharia de performance**
+
+**Avaliação técnica de stacks backend**
+
+**Benchmark honesto e reproduzível**
+
+Contribuições, melhorias e novos cenários de teste são bem-vindos.
