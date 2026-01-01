@@ -158,7 +158,7 @@ Os resultados são salvos automaticamente em:
 
 - **Overhead perceptível em workloads CPU-bound**
 
-- **Conclusão: a escolha da stack deve considerar o tipo de carga predominante da aplicação, e não apenas benchmarks isolados.**
+Conclusão: a escolha da stack deve considerar o tipo de carga predominante da aplicação, e não apenas benchmarks isolados.**
 
 ## ⚙️ Ambiente de Teste
 
